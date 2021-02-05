@@ -1,0 +1,9 @@
+form#newTask {
+  padding: 16px !important;
+}
+
+div.card-header {
+  height: 70px !important;
+  font-weight: bold;
+  font-size: 30px;
+}

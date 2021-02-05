@@ -1,6 +1,4 @@
-const { Sequelize } = require('sequelize')
-const Seuelize = require('sequelize')
-
+const Sequelize = require('sequelize')
 const sequelize = require('./index.js')
 
 const tableName = 'list_tasks'
@@ -16,7 +14,7 @@ const taskLsit = sequelize.define(tableName, {
   date: Sequelize.DATE,
   completed: Sequelize.BOOLEAN,
 },
-{ timestamps: false}
+  { timestamps: false }
 )
 
 module.exports = taskLsit

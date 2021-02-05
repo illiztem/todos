@@ -1,9 +1,9 @@
-import './App.css';
+import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import Header from './components/Header'
 
-function App() {
+export default function App() {
   return (
-    <div className="App"></div>
-  );
+    <Header />
+  )
 }
-
-export default App;

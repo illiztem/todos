@@ -11,7 +11,7 @@ controllers.index = async (req, res) => {
     return error
   })
 
-  res.json({ success: true, response })
+  res.json({ success: true, data: response })
 }
 
 module.exports = controllers
