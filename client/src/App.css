@@ -2,8 +2,22 @@ form#newTask {
   padding: 16px !important;
 }
 
+button#btnNewTask {
+  position: absolute;
+  right: 0;
+  height: 45px;
+}
+
 div.card-header {
   height: 70px !important;
   font-weight: bold;
   font-size: 30px;
+}
+
+.mr-sm {
+  margin-right: 8px !important;
+}
+
+.ml-sm {
+  margin-left: 8px !important;
 }

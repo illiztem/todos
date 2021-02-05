@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const TasksRoute = require('./routers/tasksRoute')
+const bodyParser = require('body-parser')
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')
@@ -9,6 +10,11 @@ app.use((req, res, next) => {
   res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE')
   next()
 })
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
 
 app.use('/tasks', TasksRoute)
 
