@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { ip } from '../config'
 import { Button, Modal, Form } from 'react-bootstrap'
-import { MdModeEdit, MdClose, MdSave, MdCheck } from 'react-icons/md'
+import { MdModeEdit, MdClose, MdSave, MdCheck, MdRemoveRedEye } from 'react-icons/md'
 import axios from 'axios'
 
 export default function EditTask(props) {
   const taskId = props.taskId
   const [show, setShow] = useState(false)
   const [title, setTitle] = useState(false)
-  const [completed, setCompleted] = useState(false)
+  const [completed, setCompleted] = useState(props.isCompleted)
   const [description, setDescription] = useState(false)
   const handleClose = () => setShow(false)
   const handleShow = () => {
@@ -72,9 +72,8 @@ export default function EditTask(props) {
   return (
     <>
       <Button variant="outline-info" className="btn-action" onClick={handleShow}>
-        <MdModeEdit />
+        {completed ? <MdRemoveRedEye /> : <MdModeEdit />}
       </Button>
-
       <Modal
         show={show}
         onHide={handleClose}
@@ -94,20 +93,25 @@ export default function EditTask(props) {
             <Form.Control as="textarea" value={description} onChange={val => setDescription(val.target.value)} rows={3} placeholder="Task description..." />
           </Form.Group>
           <Modal.Footer>
-            {!completed && <>
-              <Button variant="outline-info" onClick={markAsCompleted}>
-                <MdCheck className="mr-sm" />
-              Mark as completed
-            </Button>
-              <Button variant="danger" onClick={handleClose}>
+            {!completed ?
+              <>
+                <Button variant="outline-info" onClick={markAsCompleted}>
+                  <MdCheck className="mr-sm" />
+                  Mark as completed
+                </Button>
+                <Button variant="danger" onClick={handleClose}>
+                  <MdClose className="mr-sm" />
+                  Cancel
+                </Button>
+                <Button variant="success" type="button" disabled={completed} onClick={handleSubmit}>
+                  Save
+                  <MdSave className="ml-sm" />
+                </Button>
+              </> :
+              <Button variant="light" onClick={handleClose}>
                 <MdClose className="mr-sm" />
-              Cancel
-            </Button>
-              <Button variant="success" type="button" disabled={completed} onClick={handleSubmit}>
-                Save
-            <MdSave className="ml-sm" />
+                Close
               </Button>
-            </>
             }
           </Modal.Footer>
         </Form>
