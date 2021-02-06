@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Modal, Form, Table } from 'react-bootstrap'
-import { MdModeEdit, MdDeleteForever, MdCheckCircle, MdCheck } from 'react-icons/md'
+import { ip } from '../config'
+import { Button, Table } from 'react-bootstrap'
+import { MdDeleteForever, MdCheckCircle, MdCheck } from 'react-icons/md'
 import axios from 'axios'
+import EditTask from './EditTask'
 
 function TasksList() {
   const [tasks, setTasks] = useState([])
 
   const requestData = () => {
-    const urlRequest = 'http://192.168.1.118:3001/tasks'
+    const urlRequest = `http://${ip}:3001/tasks`
     axios.get(urlRequest).then(res => {
       if (res.data.success) {
         const data = res.data.data
@@ -30,7 +32,7 @@ function TasksList() {
           <td>{d.title}</td>
           <td>{d.date}</td>
           <td>{`${d.description.substring(0, 100)}...`}</td>
-          <td className="min-width"><Button variant="outline-info" className="btn-action"><MdModeEdit /></Button></td>
+          <td className="min-width"> <EditTask taskId={d.id} /></td>
           <td className="min-width"><Button variant="outline-danger" className="btn-action"><MdDeleteForever /></Button></td>
         </tr>
       )

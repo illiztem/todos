@@ -1,12 +1,12 @@
-form#newTask {
-  padding: 16px !important;
-}
-
 button#btnNewTask {
   position: absolute;
   right: 0;
   height: 45px;
   margin-right: 16px !important;
+}
+
+form.task {
+  padding: 16px !important;
 }
 
 div.card-header {

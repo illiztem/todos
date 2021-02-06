@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { ip } from '../config'
 import { Button, Modal, Form } from 'react-bootstrap'
 import { MdAddCircleOutline, MdClose, MdSave } from 'react-icons/md'
 import axios from 'axios'
@@ -18,7 +19,7 @@ export default function NewTask() {
     }
 
     const data = { title, description }
-    const urlRequest = 'http://192.168.1.118:3001/tasks/create'
+    const urlRequest = `http://${ip}:3001/tasks/create`
 
     axios.post(urlRequest, data).then(response => {
       if (response.data.success) {
@@ -31,7 +32,6 @@ export default function NewTask() {
       alert(`Error: ${error}`)
     })
   }
-
 
   return (
     <>
@@ -49,7 +49,7 @@ export default function NewTask() {
         <Modal.Header closeButton>
           <Modal.Title>New task</Modal.Title>
         </Modal.Header>
-        <Form id="newTask">
+        <Form className="task">
           <Form.Group controlId="taskTitle" key="title">
             <Form.Label>Title (required)</Form.Label>
             <Form.Control type="text" onChange={val => setTitle(val.target.value)} placeholder="Task title" />
