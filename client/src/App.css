@@ -6,6 +6,7 @@ button#btnNewTask {
   position: absolute;
   right: 0;
   height: 45px;
+  margin-right: 16px !important;
 }
 
 div.card-header {
@@ -20,4 +21,20 @@ div.card-header {
 
 .ml-sm {
   margin-left: 8px !important;
+}
+
+.completed {
+  color: #28a745;
+}
+
+.uncompleted {
+  color: #dc3545;
+}
+
+.btn-action {
+  border: none !important;
+}
+
+.min-width {
+  width: 1px !important;
 }

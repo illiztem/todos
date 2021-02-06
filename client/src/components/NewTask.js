@@ -10,12 +10,11 @@ export default function NewTask() {
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 
-
   const handleSubmit = (event) => {
     event.stopPropagation()
 
     if (!title) {
-      alert('Se debe llenar el Titulo')
+      return alert('Title field is required, please fill the title')
     }
 
     const data = { title, description }
@@ -24,6 +23,7 @@ export default function NewTask() {
     axios.post(urlRequest, data).then(response => {
       if (response.data.success) {
         alert('Task created successfully')
+        window.location.reload()
       } else {
         alert('There was an error while creating the task, try again later')
       }
@@ -31,6 +31,8 @@ export default function NewTask() {
       alert(`Error: ${error}`)
     })
   }
+
+
   return (
     <>
       <Button id="btnNewTask" variant="primary" onClick={handleShow}>
