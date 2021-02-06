@@ -11,6 +11,11 @@
 Open a terminal and go to the `project's root folder` run the following commands:
  1. cd server 
  2. npm install
+ 
+#### Download the client dependences
+Open a terminal and go to the `project's root folder` run the following commands:
+ 1. cd client 
+ 2. npm install
 
 ### Step 3: Setup server IP ADDRESS
 Open a terminal and get IP ADDRESS by running the following command:
@@ -22,15 +27,17 @@ Then follow the next steps:
 2. Open `config.js` file
 3. Update the line 2 ip object property with your own IP ADDRESS
 
-#### Download the client dependences
-Open a terminal and go to the `project's root folder` run the following commands:
- 1. cd client 
- 2. npm install
- 
+### Step 4: Importing DB
+1. Go to `server folder`
+2. Open `db.sql` file
+3. Import `db.sql` file in your DBMS of preference
+
+> If import doesn't works copy the content of the file and paste it on a SQL Script 
+
 ## Starting the server
-* Need to complete the steps **`1, 2 and 3`**
+* Need to complete the steps **`1, 2, 3 and 4`**
 * To start the nodejs server run the command **`node index.js`**
 
 ## Starting the client
-* Need to complete the steps **`1, 2 and 3`**
+* Need to complete the steps **`1, 2, 3 and 4`**
 * To start the nodejs server run the command **`npm start`**
