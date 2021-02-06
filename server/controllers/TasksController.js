@@ -75,4 +75,19 @@ controllers.edit = async (req, res) => {
   })
 }
 
+controllers.delete = async (req, res) => {
+  const { id } = req.params
+
+  const response = await Tasks.destroy({ where: { id } }).then(data => {
+    return data
+  }).catch(error => {
+    return error
+  })
+
+  res.status(200).json({
+    success: true,
+    data: response
+  })
+}
+
 module.exports = controllers

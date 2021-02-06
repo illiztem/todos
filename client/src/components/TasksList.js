@@ -4,6 +4,7 @@ import { Button, Table } from 'react-bootstrap'
 import { MdDeleteForever, MdCheckCircle, MdCheck } from 'react-icons/md'
 import axios from 'axios'
 import EditTask from './EditTask'
+import ConfirmDelete from './ConfirmDelete'
 
 function TasksList() {
   const [tasks, setTasks] = useState([])
@@ -32,8 +33,8 @@ function TasksList() {
           <td>{d.title}</td>
           <td>{d.date}</td>
           <td>{`${d.description.substring(0, 100)}...`}</td>
-          <td className="min-width"> <EditTask taskId={d.id} /></td>
-          <td className="min-width"><Button variant="outline-danger" className="btn-action"><MdDeleteForever /></Button></td>
+          <td className="min-width"><EditTask taskId={d.id} /></td>
+          <td className="min-width"><ConfirmDelete taskId={d.id} /></td>
         </tr>
       )
     })

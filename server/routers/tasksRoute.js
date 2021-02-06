@@ -8,5 +8,6 @@ router.post('/create', TasksController.create)
 router.get('/get/:id', TasksController.get)
 router.patch('/completed/:id', TasksController.completed)
 router.put('/edit/:id', TasksController.edit)
+router.delete('/delete/:id', TasksController.delete)
 
 module.exports = router
