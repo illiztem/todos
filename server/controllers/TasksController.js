@@ -15,9 +15,55 @@ controllers.index = async (req, res) => {
 }
 
 controllers.create = async (req, res) => {
-  const {title, description} = req.body
+  const { title, description } = req.body
 
-  const response = await Tasks.create({title, description}).then(data => {
+  const response = await Tasks.create({ title, description }).then(data => {
+    return data
+  }).catch(error => {
+    return error
+  })
+
+  res.status(200).json({
+    success: true,
+    data: response
+  })
+}
+
+controllers.get = async (req, res) => {
+  const { id } = req.params
+
+  const response = await Tasks.findAll({ where: { id } }).then(data => {
+    return data
+  }).catch(error => {
+    return error
+  })
+
+  res.status(200).json({
+    success: true,
+    data: response
+  })
+}
+
+controllers.completed = async (req, res) => {
+  const { id } = req.params
+
+  const response = await Tasks.update({ completed: 1 }, { where: { id } }).then(data => {
+    return data
+  }).catch(error => {
+    return error
+  })
+
+  res.status(200).json({
+    success: true,
+    data: response
+  })
+}
+
+controllers.edit = async (req, res) => {
+  const { id } = req.params
+  const { title, description } = req.body
+
+  const response = await Tasks.update({ title, description }, { where: { id } }).then(data => {
     return data
   }).catch(error => {
     return error
