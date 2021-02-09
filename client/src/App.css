@@ -21,6 +21,10 @@ form.task {
   padding: 5% 10% !important;
 }
 
+form.task.no-edit .form-control{
+  border: none !important;
+}
+
 form.task .form-control {
   border: 1px solid var(--light-grey);
 }
@@ -87,4 +91,17 @@ div.card-header {
 #titleRequired {
   color: var(--red) !important;
   margin-left: 5%;
+}
+
+label {
+  font-weight: bold;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+table, th, td {
+  border-left: none !important;
+  border-right: none !important;
 }

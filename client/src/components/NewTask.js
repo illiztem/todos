@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { ip } from '../config'
 import { Button, Modal, Form } from 'react-bootstrap'
-import { MdAddCircleOutline, MdClose, MdSave } from 'react-icons/md'
+import { MdAddCircleOutline } from 'react-icons/md'
 import axios from 'axios'
 
 export default function NewTask() {
@@ -59,7 +59,7 @@ export default function NewTask() {
         <Form className="task">
           <Form.Group controlId="taskTitle" key="title">
             <Form.Label>Title (required)</Form.Label>
-            <Form.Control type="text" onChange={val => changeTitle(val.target.value)} placeholder="Task title" aria-describedby="titleError" />
+            <Form.Control type="text" onChange={val => changeTitle(val.target.value)} placeholder="Task title" />
             {titleReq && <Form.Text id="titleRequired"> Required </Form.Text>}
           </Form.Group>
           <Form.Group controlId="taskDescription" key="description">
@@ -67,7 +67,7 @@ export default function NewTask() {
             <Form.Control as="textarea" onChange={val => setDescription(val.target.value)} rows={3} placeholder="Task description..." />
           </Form.Group>
           <Modal.Footer>
-            <Button className="btn-grey" onClick={handleClose}>
+            <Button className="btn-grey" type="button" onClick={handleClose}>
               Cancel
           </Button>
             <Button variant="primary" type="button" onClick={handleSubmit}>

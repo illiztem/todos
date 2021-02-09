@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { ip } from '../config'
-import { Button, Form, Table } from 'react-bootstrap'
-import { MdCheckCircle, MdCheck } from 'react-icons/md'
+import { Form, Table } from 'react-bootstrap'
+import { MdCheck } from 'react-icons/md'
 import axios from 'axios'
 import EditTask from './EditTask'
-import ConfirmDelete from './ConfirmDelete'
+import NewTask from './NewTask'
 
 function TasksList() {
   const [tasks, setTasks] = useState([])
   const [backupTasks, setBackupTasks] = useState([])
   const [filter, setFilter] = useState('')
+  const [taskId, setTaskId] = useState(false)
 
   const requestData = () => {
     const urlRequest = `http://${ip}:3001/tasks`
@@ -31,17 +32,35 @@ function TasksList() {
   const loadFillData = () => {
     return tasks.map(d => {
       return (
-        <tr key={d.id}>
-          <td className="min-width">{d.completed ? <MdCheckCircle className="completed" /> : <MdCheck className="uncompleted" />} </td>
-          <td>{d.title}</td>
-          <td>{d.date}</td>
-          <td>{`${d.description.substring(0, 100)}...`}</td>
-          <td className="min-width"><EditTask taskId={d.id} isCompleted={d.completed} /></td>
-          <td className="min-width"><ConfirmDelete taskId={d.id} /></td>
+        <tr key={d.id} className="pointer">
+          <td onClick={() => markAsCompleted(d.completed, d.id)} className="min-width"><MdCheck className={d.completed ? 'completed' : 'uncompleted'} /> </td>
+          <td onClick={() => setTaskId(d.id)}>{d.title}</td>
+          <td onClick={() => setTaskId(d.id)}>{d.date}</td>
+          <td onClick={() => setTaskId(d.id)}>{`${d.description.substring(0, 100)}...`}</td>
         </tr>
       )
     })
   }
+
+  const markAsCompleted = (isCompleted, id) => {
+    if (isCompleted) {
+      return
+    }
+
+    const urlRequest = `http://${ip}:3001/tasks/completed/${id}`
+
+    axios.patch(urlRequest).then(response => {
+      if (response.data.success) {
+        alert('Task marked as completed successfully')
+        window.location.reload()
+      } else {
+        alert('There was an error while completing the task, try again later')
+      }
+    }).catch(error => {
+      alert(`Error: ${error}`)
+    })
+  }
+
 
   const filterList = (event) => {
     const filterDate = event.target.value
@@ -57,30 +76,28 @@ function TasksList() {
     setTasks(updatedList)
   }
 
-  const eraseFilter = () => {
-    setFilter('')
-    setTasks(backupTasks)
+  const renderEditTask = () => {
+    return (
+      <EditTask taskId={taskId} show={true} />
+    )
   }
 
   return (
     <>
       <Form inline>
-        <Form.Label> Filter </Form.Label>
         <Form.Group>
           <Form.Control className="ml-sm" type="date" onChange={filterList} value={filter} />
         </Form.Group>
-        <Button id="filter" variant="outline-info" onClick={eraseFilter}>Clean filter</Button>
+        <NewTask />
+        {taskId && renderEditTask()}
       </Form>
-
       <Table bordered hover responsive>
         <thead>
           <tr>
             <th></th>
             <th>Title</th>
-            <th>Created on</th>
+            <th>Created</th>
             <th>Description</th>
-            <th>Edit/View</th>
-            <th>Delete</th>
           </tr>
         </thead>
         <tbody>

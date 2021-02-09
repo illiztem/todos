@@ -1,29 +1,31 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ip } from '../config'
 import { Button, Modal, Form } from 'react-bootstrap'
-import { MdModeEdit, MdClose, MdSave, MdCheck, MdRemoveRedEye } from 'react-icons/md'
+import { MdModeEdit } from 'react-icons/md'
 import axios from 'axios'
+import ConfirmDelete from './ConfirmDelete'
 
 export default function EditTask(props) {
   const taskId = props.taskId
-  const [show, setShow] = useState(false)
-  const [title, setTitle] = useState(false)
-  const [completed, setCompleted] = useState(props.isCompleted)
-  const [description, setDescription] = useState(false)
-  const handleClose = () => setShow(false)
+  const [task, setTask] = useState({})
+  const [show, setShow] = useState(true)
+  const [titleReq, setTitleReq] = useState(false)
+  const [edit, setEdit] = useState(false)
+  const handleClose = () => window.location.reload()
+
   const handleShow = () => {
     requestData()
     setShow(true)
   }
+
+  useEffect(handleShow, [])
 
   const requestData = () => {
     const urlRequest = `http://${ip}:3001/tasks/get/${taskId}`
     axios.get(urlRequest).then(res => {
       if (res.data.success) {
         const data = res.data.data[0]
-        setTitle(data.title)
-        setDescription(data.description)
-        setCompleted(data.completed)
+        setTask(data)
       } else {
         alert('Error web server 1')
       }
@@ -35,12 +37,16 @@ export default function EditTask(props) {
   const handleSubmit = (event) => {
     event.stopPropagation()
 
-    if (!title) {
+    if (!task.title) {
+      setTitleReq(true)
       return alert('Title field is required, please fill the title')
     }
 
-    const data = { title, description }
     const urlRequest = `http://${ip}:3001/tasks/edit/${taskId}`
+    const data = {
+      title: task.title,
+      description: task.description
+    }
 
     axios.put(urlRequest, data).then(response => {
       if (response.data.success) {
@@ -54,26 +60,20 @@ export default function EditTask(props) {
     })
   }
 
-  const markAsCompleted = () => {
-    const urlRequest = `http://${ip}:3001/tasks/completed/${taskId}`
+  const setTaskTitle = (title) => {
+    const tempTask = { ...task }
+    tempTask.title = title
+    setTask(tempTask)
+  }
 
-    axios.patch(urlRequest).then(response => {
-      if (response.data.success) {
-        alert('Task marked as completed successfully')
-        window.location.reload()
-      } else {
-        alert('There was an error while completing the task, try again later')
-      }
-    }).catch(error => {
-      alert(`Error: ${error}`)
-    })
+  const setTaskDescription = (description) => {
+    const tempTask = { ...task }
+    tempTask.description = description
+    setTask(tempTask)
   }
 
   return (
     <>
-      <Button variant="outline-info" className="btn-action" onClick={handleShow}>
-        {completed ? <MdRemoveRedEye /> : <MdModeEdit />}
-      </Button>
       <Modal
         show={show}
         onHide={handleClose}
@@ -81,37 +81,53 @@ export default function EditTask(props) {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>{!completed ? 'Edit' : 'View'} task</Modal.Title>
+          <Modal.Title>{edit ? 'Edit task' : task.title}</Modal.Title>
         </Modal.Header>
         <Form className="task">
-          <Form.Group controlId="taskTitle" key="title">
-            <Form.Label>Title (required)</Form.Label>
-            <Form.Control type="text" value={title} onChange={val => setTitle(val.target.value)} placeholder="Task title" />
+          <Form.Group>
+            <Form.Control as="select">
+              <option>Status: pending</option>
+              <option selected={task.completed}>Status: completed</option>
+            </Form.Control>
           </Form.Group>
+          <Form.Group controlId="taskTitle" key="title">
+            <Form.Label>Created</Form.Label>
+            <br />
+            <Form.Text>{task.date}</Form.Text>
+          </Form.Group>
+          {edit ?
+            <Form.Group controlId="taskTitle" key="title">
+              <Form.Label>Title (required)</Form.Label>
+              <Form.Control type="text" value={task.title} onChange={val => setTaskTitle(val.target.value)} placeholder="Task title" />
+              {titleReq && <Form.Text id="titleRequired"> Required </Form.Text>}
+            </Form.Group>
+            :
+            ''
+          }
           <Form.Group controlId="taskDescription" key="description">
             <Form.Label>Description</Form.Label>
-            <Form.Control as="textarea" value={description} onChange={val => setDescription(val.target.value)} rows={3} placeholder="Task description..." />
+            {edit ?
+              <Form.Control as="textarea" value={task.description} onChange={val => setTaskDescription(val.target.value)} rows={3} placeholder="Task description..." />
+              :
+              <Form.Text>{task.description}</Form.Text>
+            }
           </Form.Group>
           <Modal.Footer>
-            {!completed ?
+            {edit ?
               <>
-                <Button variant="outline-info" onClick={markAsCompleted}>
-                  <MdCheck className="mr-sm" />
-                  Mark as completed
-                </Button>
-                <Button variant="danger" onClick={handleClose}>
-                  <MdClose className="mr-sm" />
+                <Button className="btn-grey" type="button" onClick={handleClose}>
                   Cancel
                 </Button>
-                <Button variant="success" type="button" disabled={completed} onClick={handleSubmit}>
+                <Button className="btn-grey" type="button" onClick={handleSubmit}>
                   Save
-                  <MdSave className="ml-sm" />
                 </Button>
-              </> :
-              <Button variant="light" onClick={handleClose}>
-                <MdClose className="mr-sm" />
-                Close
-              </Button>
+              </> : <>
+                <Button className="btn-grey" type="button" onClick={() => setEdit(true)}>
+                  <MdModeEdit className="mr-sm" />
+                  Edit
+                </Button>
+                <ConfirmDelete taskId={taskId} />
+              </>
             }
           </Modal.Footer>
         </Form>

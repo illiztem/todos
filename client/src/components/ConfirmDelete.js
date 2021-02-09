@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { ip } from '../config'
 import { Button, Modal } from 'react-bootstrap'
-import { MdClose, MdDeleteForever } from 'react-icons/md'
+import { MdDeleteForever } from 'react-icons/md'
 import axios from 'axios'
 
 export default function ConfirmDelete(props) {
@@ -27,8 +27,9 @@ export default function ConfirmDelete(props) {
 
   return (
     <>
-      <Button variant="outline-danger" className="btn-action" onClick={handleShow}>
-        <MdDeleteForever />
+      <Button className="btn-grey" type="button" onClick={handleShow}>
+        <MdDeleteForever className="mr-sm" />
+        Delete
       </Button>
 
       <Modal
@@ -44,12 +45,10 @@ export default function ConfirmDelete(props) {
           <p>This action is irreversible. Do you want to delete the task? </p>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="danger" onClick={handleClose}>
-            <MdClose className="mr-sm" />
+          <Button className="btn-grey" onClick={handleClose}>
             No
           </Button>
-          <Button variant="success" onClick={confirmDelete}>
-            <MdDeleteForever className="mr-sm" />
+          <Button variant="primary" onClick={confirmDelete}>
             Yes
           </Button>
         </Modal.Footer>
