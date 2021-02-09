@@ -10,14 +10,14 @@ controllers.index = async (req, res) => {
     return data
   }).catch(error => {
     serverRes.msg = `Oops! Error found in the server: ${error}`
+    return error
   })
 
-  if (+response) {
+  if (response) {
     serverRes.success = true
     serverRes.data = response
   } else {
     serverRes.msg = "Oops! The server couldn't find the requested data, try again later"
-    return error
   }
 
   res.json(serverRes)
@@ -55,11 +55,11 @@ controllers.get = async (req, res) => {
     return error
   })
 
-  if (+response) {
+  if (response) {
     serverRes.success = true
     serverRes.data = response
   } else {
-    serverRes.msg = "Oops! The server couldn't save the task, try again later"
+    serverRes.msg = "Oops! The server couldn't show the task, try again later"
   }
 
   res.json(serverRes)
@@ -68,7 +68,7 @@ controllers.get = async (req, res) => {
 controllers.completed = async (req, res) => {
   const serverRes = { success: false }
   const { id } = req.params
-  
+
   const response = await Tasks.update({ completed: 1 }, { where: { id } }).then(data => {
     return data
   }).catch(error => {
@@ -83,8 +83,6 @@ controllers.completed = async (req, res) => {
     serverRes.msg = "Oops! The server couldn't complete the task, try again later"
   }
 
-  console.log(parseInt(response))
-  console.log(serverRes)
   res.json(serverRes)
 }
 
@@ -100,7 +98,7 @@ controllers.edit = async (req, res) => {
     return error
   })
 
-  if (+response) {
+  if (response) {
     serverRes.success = true
     serverRes.data = response
   } else {

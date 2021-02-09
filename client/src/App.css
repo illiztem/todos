@@ -155,3 +155,9 @@ td.no-data {
 button {
   box-shadow: none !important;
 }
+
+.view-only .modal-dialog {
+  position: fixed;
+  right: 0;
+  min-width: 300px;
+}

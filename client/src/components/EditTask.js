@@ -25,6 +25,12 @@ export default function EditTask(props) {
     axios.get(urlRequest).then(res => {
       if (res.data.success) {
         const data = res.data.data[0]
+
+        data.date = new Intl.DateTimeFormat("en-GB", {
+          year: "numeric",
+          month: "short",
+          day: "2-digit"
+        }).format(Date.parse(data.date)).replaceAll(' ', '/')
         setTask(data)
       } else {
         alert(res.data.msg)
@@ -80,6 +86,7 @@ export default function EditTask(props) {
         backdrop="static"
         keyboard={false}
         centered
+        className={!edit ? 'view-only' : ''}
       >
         <Modal.Header closeButton>
           <Modal.Title>{edit ? 'Edit task' : task.title}</Modal.Title>
@@ -96,11 +103,7 @@ export default function EditTask(props) {
             <br />
             <Form.Text>
               {
-                new Intl.DateTimeFormat("en-GB", {
-                  year: "numeric",
-                  month: "short",
-                  day: "2-digit"
-                }).format(Date.parse(task.date)).replaceAll(' ', '/')
+                task.date
               }
             </Form.Text>
           </Form.Group>
