@@ -18,7 +18,7 @@ export default function ConfirmDelete(props) {
         alert('Task deleted successfully')
         window.location.reload()
       } else {
-        alert('There was an error while deleting the task, try again later')
+        alert(response.data.msg)
       }
     }).catch(error => {
       alert(`Error: ${error}`)

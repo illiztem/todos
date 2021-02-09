@@ -33,7 +33,7 @@ export default function NewTask() {
         alert('Task created successfully')
         window.location.reload()
       } else {
-        alert('There was an error while creating the task, try again later')
+        alert(response.data.msg)
       }
     }).catch(error => {
       alert(`Error: ${error}`)

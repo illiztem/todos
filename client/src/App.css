@@ -105,3 +105,8 @@ table, th, td {
   border-left: none !important;
   border-right: none !important;
 }
+
+td.no-data {
+  color: var(--red);
+  text-align: center;
+}

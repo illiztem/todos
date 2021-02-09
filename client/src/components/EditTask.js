@@ -27,10 +27,10 @@ export default function EditTask(props) {
         const data = res.data.data[0]
         setTask(data)
       } else {
-        alert('Error web server 1')
+        alert(res.data.msg)
       }
     }).catch(error => {
-      alert('Error web server 2')
+      alert(`Error: ${error}`)
     })
   }
 

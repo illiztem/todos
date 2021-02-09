@@ -20,16 +20,28 @@ function TasksList() {
         setTasks(data)
         setBackupTasks(data)
       } else {
-        alert('Error web server 1')
+        alert(res.data.msg)
       }
     }).catch(error => {
-      alert('Error web server 2')
+      alert(`Error: ${error}`)
     })
+  }
+
+  const noData = () => {
+    return (
+      <tr>
+        <td colSpan="4" className="no-data"> Task list is empty, create one </td>
+      </tr>
+    )
   }
 
   useEffect(requestData, [])
 
   const loadFillData = () => {
+    if (tasks.length === 0) {
+      return noData()
+    }
+
     return tasks.map(d => {
       return (
         <tr key={d.id} className="pointer">
@@ -54,7 +66,7 @@ function TasksList() {
         alert('Task marked as completed successfully')
         window.location.reload()
       } else {
-        alert('There was an error while completing the task, try again later')
+        alert(response.data.msg)
       }
     }).catch(error => {
       alert(`Error: ${error}`)
