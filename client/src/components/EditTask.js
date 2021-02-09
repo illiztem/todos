@@ -30,7 +30,7 @@ export default function EditTask(props) {
           year: "numeric",
           month: "short",
           day: "2-digit"
-        }).format(Date.parse(data.date)).replaceAll(' ', '/')
+        }).format(Date.parse(data.date)).split(' ').join('/')
         setTask(data)
       } else {
         alert(res.data.msg)

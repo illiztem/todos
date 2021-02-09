@@ -35,9 +35,14 @@ Then follow the next steps:
 > If import doesn't works copy the content of the file and paste it on a SQL Script 
 
 ## Starting the server
-* Need to complete the steps **`1, 2, 3 and 4`**
-* To start the nodejs server run the command **`node index.js`**
+1. Need to complete the steps **`1, 2, 3 and 4`**
+2. Go to `server folder`
+3. To start the nodejs server run the command **`node index.js`**
 
 ## Starting the client
-* Need to complete the steps **`1, 2, 3 and 4`**
-* To start the nodejs server run the command **`npm start`**
+1. Need to complete the steps **`1, 2, 3 and 4`**
+2. Go to `client folder`
+3. To generate the react client run the command **`npm run build`**
+4. Install SERVE, open a terminal and execute: npm install -g serve
+5. To start the react client run the command **`serve -s build`**
+6. Open a browser and go to your IP ADDRESS (*obtained in STEP 3*) and PORT 5000, in example `192.168.1.118:5000`

@@ -34,7 +34,7 @@ controllers.create = async (req, res) => {
     return error
   })
 
-  if (+response) {
+  if (response) {
     serverRes.success = true
     serverRes.data = response
   } else {
@@ -76,7 +76,7 @@ controllers.completed = async (req, res) => {
     return error
   })
 
-  if (+response) {
+  if (response) {
     serverRes.success = true
     serverRes.data = response
   } else {

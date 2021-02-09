@@ -13,6 +13,7 @@
     "popper.js": "^1.16.1",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.3",
+    "react-datepicker": "^3.4.1",
     "react-dom": "^17.0.1",
     "react-hooks": "^1.0.1",
     "react-icons": "^4.1.0",
@@ -35,12 +36,14 @@
     "production": [
       ">0.2%",
       "not dead",
-      "not op_mini all"
+      "not op_mini all",
+      "IE 11"
     ],
     "development": [
       ">0.2%",
       "not dead",
-      "not op_mini all"
+      "not op_mini all",
+      "IE 11"
     ]
   }
 }

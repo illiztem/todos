@@ -1,11 +1,7 @@
-:root {
-  --light-grey: rgba(128, 128, 128, 0.24);
-}
-
 button#btnNewTask {
   background: transparent;
   border: none;
-  color: var(--blue);
+  color: #007bff;
   position: absolute;
   right: 0;
   height: 38px;
@@ -16,29 +12,25 @@ button#btnNewTask:hover {
   background: rgba(128, 128, 128, 0.24);
 }
 
-form.task {
+.task {
   padding: 5% 10% !important;
 }
 
-form.task.no-edit .form-control {
+.task.no-edit .form-control {
   border: none !important;
 }
 
-form.task .form-control {
-  border: 1px solid var(--light-grey);
+.task .form-control, #filterDate {
+  border: 1px solid rgba(128, 128, 128, 0.24);;
 }
 
-form.task .form-control:hover {
+.task .form-control:hover, #filterDate:hover {
   border: 1px solid rgba(63, 62, 62, 0.74);
 }
 
-form.task .form-control:focus {
-  border: 1px solid var(--blue);
+.task .form-control:focus, #filterDate:focus {
+  border: 1px solid #007bff;
   box-shadow: none !important;
-}
-
-form.form-inline {
-  padding: 8px !important;
 }
 
 div.card-header {
@@ -58,13 +50,13 @@ div.card-header {
 .completed {
   color: white;
   border-radius: 50%;
-  background: var(--green);
+  background: #28a745;
   padding: 2px;
 }
 
 .uncompleted {
-  color: var(--secondary);
-  border: 1px solid var(--secondary);
+  color: #6c757d;
+  border: 1px solid #6c757d;
   border-radius: 50%;
   padding: 2px;
 }
@@ -78,17 +70,17 @@ div.card-header {
 }
 
 .btn-grey {
-  background: var(--light-grey) !important;
+  background: rgba(128, 128, 128, 0.24) !important;
   color: black !important;
   border: none !important;
 }
 
 .btn-grey:hover {
-  background: var(--secondary) !important;
+  background: #6c757d !important;
 }
 
 #titleRequired {
-  color: var(--red) !important;
+  color: #dc3545 !important;
   margin-left: 5%;
 }
 
@@ -106,21 +98,24 @@ table, th, td {
 }
 
 td.no-data {
-  color: var(--red);
+  color: #dc3545;
   text-align: center;
 }
 
-#filterDate {
+.react-datepicker__input-container {
   min-width: 150px;
   max-width: 200px;
   right: 0;
-  position: absolute;
-  margin-right: 130px;
+  position: absolute !important;
+  margin-right: 140px;
 }
 
+.react-datepicker-wrapper {
+  display: block !important;
+}
 .container {
   margin: 0 !important;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
 }
 
 .bold {
@@ -134,9 +129,10 @@ td.no-data {
   .container {
     max-width: 100%!important;
   }
-  #filterDate {
+.react-datepicker__input-container {
     right: unset !important;
   }
+  
   button#btnNewTask {
     right: unset;
     margin-left: 216px;
@@ -160,4 +156,8 @@ button {
   position: fixed;
   right: 0;
   min-width: 300px;
+}
+
+body {
+  min-width: 360px;
 }

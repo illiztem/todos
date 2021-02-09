@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { ip } from '../config'
-import { Col, Container, Form, Row, Table } from 'react-bootstrap'
+import { Col, Container, Row, Table } from 'react-bootstrap'
 import { MdCheck } from 'react-icons/md'
 import axios from 'axios'
 import EditTask from './EditTask'
 import NewTask from './NewTask'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function TasksList() {
   const [tasks, setTasks] = useState([])
@@ -53,7 +55,7 @@ function TasksList() {
                 year: "numeric",
                 month: "short",
                 day: "2-digit"
-              }).format(Date.parse(d.date)).replaceAll(' ', '/')
+              }).format(Date.parse(d.date)).split(' ').join('/')
             }
           </td>
           <td onClick={() => setTaskId(d.id)} className='min-table'>{`${d.description.substring(0, 100)}...`}</td>
@@ -82,9 +84,14 @@ function TasksList() {
   }
 
 
-  const filterList = (event) => {
-    const filterDate = event.target.value
-    setFilter(filterDate)
+  const filterList = (date) => {
+    let filterDate = new Intl.DateTimeFormat("en-GB", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit"
+    }).format(Date.parse(date)).split('/').reverse().join('-')
+
+    setFilter(date)
 
     let updatedList = backupTasks
     updatedList = updatedList.filter(list => {
@@ -108,15 +115,16 @@ function TasksList() {
         <Row>
           <Col sm={3} xs={12} className="bold">Tasks</Col>
           <Col sm={9} xs={12} id="taskActions">
-            <Form inline>
-              <Form.Group>
-                <Form.Control id="filterDate" className="ml-sm" type="date" onChange={filterList} value={filter} />
-              </Form.Group>
-              <Form.Group>
-                <NewTask />
-                {taskId && renderEditTask()}
-              </Form.Group>
-            </Form>
+            <DatePicker
+              id="filterDate"
+              className="ml-sm form-control"
+              onChange={filterList}
+              selected={filter}
+              placeholderText="Created: 09/02/2021"
+              dateFormat="dd/MMM/yyyy"
+            />
+            <NewTask />
+            {taskId && renderEditTask()}
           </Col>
         </Row>
       </Container>
