@@ -1,22 +1,37 @@
+:root {
+  --light-grey: rgba(128, 128, 128, 0.24);
+}
+
 button#btnNewTask {
+  background: transparent;
+  border: none;
+  box-shadow: none !important;
+  color: var(--blue);
   position: absolute;
   right: 0;
   height: 45px;
   margin-right: 16px !important;
 }
 
-button#filter {
-  position: absolute;
-  right: 0;
-  margin-right: 16px !important;
-}
-
-input#filterDate {
-  padding-left: 8px;
+button#btnNewTask:hover {
+  background: rgba(128, 128, 128, 0.24);
 }
 
 form.task {
-  padding: 16px !important;
+  padding: 5% 10% !important;
+}
+
+form.task .form-control {
+  border: 1px solid var(--light-grey);
+}
+
+form.task .form-control:hover {
+  border: 1px solid rgba(63, 62, 62, 0.74);
+}
+
+form.task .form-control:focus {
+  border: 1px solid var(--blue);
+  box-shadow: none !important;
 }
 
 form.form-inline {
@@ -38,11 +53,17 @@ div.card-header {
 }
 
 .completed {
-  color: #28a745;
+  color: white;
+  border-radius: 50%;
+  background: var(--green);
+  padding: 2px;
 }
 
 .uncompleted {
-  color: #dc3545;
+  color: var(--secondary);
+  border: 1px solid var(--secondary);
+  border-radius: 50%;
+  padding: 2px;
 }
 
 .btn-action {
@@ -51,4 +72,19 @@ div.card-header {
 
 .min-width {
   width: 1px !important;
+}
+
+.btn-grey {
+  background: var(--light-grey) !important;
+  color: black !important;
+  border: none !important;
+}
+
+.btn-grey:hover {
+  background: var(--secondary) !important;
+}
+
+#titleRequired {
+  color: var(--red) !important;
+  margin-left: 5%;
 }

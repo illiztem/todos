@@ -10,11 +10,18 @@ export default function NewTask() {
   const [description, setDescription] = useState(false)
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
+  const [titleReq, setTitleReq] = useState(false)
+
+  const changeTitle = (value) => {
+    setTitle(value)
+    setTitleReq(!value)
+  }
 
   const handleSubmit = (event) => {
     event.stopPropagation()
 
     if (!title) {
+      setTitleReq(true)
       return alert('Title field is required, please fill the title')
     }
 
@@ -52,20 +59,19 @@ export default function NewTask() {
         <Form className="task">
           <Form.Group controlId="taskTitle" key="title">
             <Form.Label>Title (required)</Form.Label>
-            <Form.Control type="text" onChange={val => setTitle(val.target.value)} placeholder="Task title" />
+            <Form.Control type="text" onChange={val => changeTitle(val.target.value)} placeholder="Task title" aria-describedby="titleError" />
+            {titleReq && <Form.Text id="titleRequired"> Required </Form.Text>}
           </Form.Group>
           <Form.Group controlId="taskDescription" key="description">
             <Form.Label>Description</Form.Label>
             <Form.Control as="textarea" onChange={val => setDescription(val.target.value)} rows={3} placeholder="Task description..." />
           </Form.Group>
           <Modal.Footer>
-            <Button variant="danger" onClick={handleClose}>
-              <MdClose className="mr-sm" />
+            <Button className="btn-grey" onClick={handleClose}>
               Cancel
           </Button>
-            <Button variant="success" type="button" onClick={handleSubmit}>
+            <Button variant="primary" type="button" onClick={handleSubmit}>
               Save
-            <MdSave className="ml-sm" />
             </Button>
           </Modal.Footer>
         </Form>
