@@ -5,11 +5,10 @@
 button#btnNewTask {
   background: transparent;
   border: none;
-  box-shadow: none !important;
   color: var(--blue);
   position: absolute;
   right: 0;
-  height: 45px;
+  height: 38px;
   margin-right: 16px !important;
 }
 
@@ -21,7 +20,7 @@ form.task {
   padding: 5% 10% !important;
 }
 
-form.task.no-edit .form-control{
+form.task.no-edit .form-control {
   border: none !important;
 }
 
@@ -109,4 +108,50 @@ table, th, td {
 td.no-data {
   color: var(--red);
   text-align: center;
+}
+
+#filterDate {
+  min-width: 150px;
+  max-width: 200px;
+  right: 0;
+  position: absolute;
+  margin-right: 130px;
+}
+
+.container {
+  margin: 0 !important;
+  padding-bottom: 10px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+@media (max-width: 576px) {
+  #taskActions {
+    padding-bottom: 20px;
+  }
+  .container {
+    max-width: 100%!important;
+  }
+  #filterDate {
+    right: unset !important;
+  }
+  button#btnNewTask {
+    right: unset;
+    margin-left: 216px;
+  }
+  .min-table {
+    display: none;
+  }
+}
+
+@media (min-width: 576px) {
+  .container {
+    max-width: 100%!important;
+  }
+}
+
+button {
+  box-shadow: none !important;
 }

@@ -6,7 +6,7 @@ export default function Header() {
   return (
     <Card>
       <Card.Header>
-        To do list
+        My tasks
       </Card.Header>
       <Card.Body>
         <TasksList />

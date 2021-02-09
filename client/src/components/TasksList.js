@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { ip } from '../config'
-import { Form, Table } from 'react-bootstrap'
+import { Col, Container, Form, Row, Table } from 'react-bootstrap'
 import { MdCheck } from 'react-icons/md'
 import axios from 'axios'
 import EditTask from './EditTask'
@@ -47,8 +47,16 @@ function TasksList() {
         <tr key={d.id} className="pointer">
           <td onClick={() => markAsCompleted(d.completed, d.id)} className="min-width"><MdCheck className={d.completed ? 'completed' : 'uncompleted'} /> </td>
           <td onClick={() => setTaskId(d.id)}>{d.title}</td>
-          <td onClick={() => setTaskId(d.id)}>{d.date}</td>
-          <td onClick={() => setTaskId(d.id)}>{`${d.description.substring(0, 100)}...`}</td>
+          <td onClick={() => setTaskId(d.id)}>
+            {
+              new Intl.DateTimeFormat("en-GB", {
+                year: "numeric",
+                month: "short",
+                day: "2-digit"
+              }).format(Date.parse(d.date)).replaceAll(' ', '/')
+            }
+          </td>
+          <td onClick={() => setTaskId(d.id)} className='min-table'>{`${d.description.substring(0, 100)}...`}</td>
         </tr>
       )
     })
@@ -96,20 +104,29 @@ function TasksList() {
 
   return (
     <>
-      <Form inline>
-        <Form.Group>
-          <Form.Control className="ml-sm" type="date" onChange={filterList} value={filter} />
-        </Form.Group>
-        <NewTask />
-        {taskId && renderEditTask()}
-      </Form>
+      <Container>
+        <Row>
+          <Col sm={3} xs={12} className="bold">Tasks</Col>
+          <Col sm={9} xs={12} id="taskActions">
+            <Form inline>
+              <Form.Group>
+                <Form.Control id="filterDate" className="ml-sm" type="date" onChange={filterList} value={filter} />
+              </Form.Group>
+              <Form.Group>
+                <NewTask />
+                {taskId && renderEditTask()}
+              </Form.Group>
+            </Form>
+          </Col>
+        </Row>
+      </Container>
       <Table bordered hover responsive>
         <thead>
           <tr>
             <th></th>
             <th>Title</th>
             <th>Created</th>
-            <th>Description</th>
+            <th className="min-table">Description</th>
           </tr>
         </thead>
         <tbody>

@@ -52,6 +52,7 @@ export default function NewTask() {
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
+        centered
       >
         <Modal.Header closeButton>
           <Modal.Title>New task</Modal.Title>

@@ -79,6 +79,7 @@ export default function EditTask(props) {
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
+        centered
       >
         <Modal.Header closeButton>
           <Modal.Title>{edit ? 'Edit task' : task.title}</Modal.Title>
@@ -93,7 +94,15 @@ export default function EditTask(props) {
           <Form.Group controlId="taskTitle" key="title">
             <Form.Label>Created</Form.Label>
             <br />
-            <Form.Text>{task.date}</Form.Text>
+            <Form.Text>
+              {
+                new Intl.DateTimeFormat("en-GB", {
+                  year: "numeric",
+                  month: "short",
+                  day: "2-digit"
+                }).format(Date.parse(task.date)).replaceAll(' ', '/')
+              }
+            </Form.Text>
           </Form.Group>
           {edit ?
             <Form.Group controlId="taskTitle" key="title">

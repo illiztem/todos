@@ -67,8 +67,8 @@ controllers.get = async (req, res) => {
 
 controllers.completed = async (req, res) => {
   const serverRes = { success: false }
-  // const { id } = req.params
-  const id = 99
+  const { id } = req.params
+  
   const response = await Tasks.update({ completed: 1 }, { where: { id } }).then(data => {
     return data
   }).catch(error => {
